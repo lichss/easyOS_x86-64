@@ -11,12 +11,17 @@
 __asm__(".code16gcc");
 
 #include "boot.h"
-
+#define BOOT_LOADER_ENTRY 0x8000
 /**
  * Boot的C入口函数
  * 只完成一项功能，即从磁盘找到loader文件然后加载到内容中，并跳转过去
  */
+
+void (*boot_loaderP)(void) = (void *)BOOT_LOADER_ENTRY; /* 我发现一个非常奇怪的bug  */
 void boot_entry(void) {
-    while(1){};
+    boot_loaderP = (void *)BOOT_LOADER_ENTRY;
+    boot_loaderP();
+    // ((void (*)(void))BOOT_LOADER_ENTRY)();
+    // while(1){};
 } 
 
