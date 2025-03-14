@@ -10,6 +10,11 @@ set(CMAKE_C_LINK_EXECUTABLE "${LINKER_TOOL} <OBJECTS> ${CMAKE_EXE_LINKER_FLAGS} 
 file(GLOB C_LIST "*.c" "*.h")
 add_executable(${PROJECT_NAME} start.S ${C_LIST})
 
+
+include_directories(
+    ${PROJECT_SOURCE_DIR}/../comm
+)
+
 # bin文件生成，写入到image目录下
 add_custom_command(TARGET ${PROJECT_NAME}
                    POST_BUILD

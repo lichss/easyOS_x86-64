@@ -23,5 +23,7 @@ void boot_entry(void) {
     boot_loaderP();
     // ((void (*)(void))BOOT_LOADER_ENTRY)();
     // while(1){};
+
+    /* 这里是不是该加点报错退出啊  */
 } 
 

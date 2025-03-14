@@ -26,17 +26,23 @@ _start:
 	mov $_start, %esp
 
 	mov $0x0e, %ah
-	mov $'H', %al
-	int $0x10
-	mov $'e', %al
-	int $0x10
-	mov $'l', %al
-	int $0x10
-	mov $'l', %al
+	
+	mov $'b', %al
 	int $0x10
 	mov $'o', %al
 	int $0x10
-
+	mov $'o', %al
+	int $0x10
+	mov $'t', %al
+	int $0x10
+	mov $'e', %al
+	int $0x10
+	mov $'n', %al
+	int $0x10
+	mov $'d', %al
+	int $0x10
+	mov $'\n', %al
+	int $0x10
 _loader:
 	mov $0x8000, %bx
 	mov $0x02, %ah
