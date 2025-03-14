@@ -2,6 +2,7 @@
 
 #include "comm/boot_info.h"
 #include "comm/types.h"
+#include "comm/cpu_instr.h"
 
 __asm__(".code16gcc");
 
@@ -62,11 +63,32 @@ static void  detect_memory(void) {
     print_string("ok.\r\n");
 }
 
+// GDT表。临时用，后面内容会替换成自己的
+uint16_t gdt_table[][4] = {
+    {0x0000, 0x0000, 0x0000, 0x0000},
+    {0xFFFF, 0x0000, 0x9A00, 0x00CF},
+    {0xFFFF, 0x0000, 0x9200, 0x00CF},
+};
+
+
+static int into_protMode(){
+
+    cli();
+    uint8_t v = inb(0x92);
+    outb(0x92, v | 0x2);
+
+    lgdt((uint32_t)gdt_table,sizeof(gdt_table));
+
+    return 0;
+}
+
 
 void loader_entry(void) {
 
     print_string("Hello, World!\n\r");
     detect_memory();
+    into_protMode();
+
     while(1){
         int a = 1;
     };
