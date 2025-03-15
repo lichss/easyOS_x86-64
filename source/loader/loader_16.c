@@ -1,10 +1,9 @@
+__asm__(".code16gcc");  /*惨痛教训 这个指令必须放在文件第一行*/
+
 #include "loader.h"
 
-#include "comm/boot_info.h"
-#include "comm/types.h"
-#include "comm/cpu_instr.h"
 
-__asm__(".code16gcc");
+// __asm__(".code16gcc");
 
 static boot_info_t boot_info;
 
@@ -77,7 +76,15 @@ static int into_protMode(){
     uint8_t v = inb(0x92);
     outb(0x92, v | 0x2);
 
-    lgdt((uint32_t)gdt_table,sizeof(gdt_table));
+    lgdt((uint32_t)gdt_table,sizeof(gdt_table));    /*我已经对这个函数的功能有猜测了 第一个参数是地址，第二个单位是长度。装GDT寄存器里头*/
+    // lgdt((uint32_t)gdt_table,16);
+
+
+    uint32_t cr0 = read_cr0();
+    cr0 |= 0x1;
+    write_cr0(cr0);
+
+    far_jump(8, (uint32_t)protected_mode_entry);
 
     return 0;
 }

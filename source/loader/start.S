@@ -19,5 +19,9 @@ _start:
 
 	jmp loader_entry
 
-	
-
+	// 32位代码
+	.code32
+	.text
+	.global protected_mode_entry
+protected_mode_entry:
+	jmp .
