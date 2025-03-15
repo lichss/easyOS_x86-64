@@ -70,7 +70,7 @@ uint16_t gdt_table[][4] = {
 };
 
 
-static int into_protMode(){
+static void into_protMode(){
 
     cli();
     uint8_t v = inb(0x92);
@@ -81,12 +81,12 @@ static int into_protMode(){
 
 
     uint32_t cr0 = read_cr0();
-    cr0 |= 0x1;
+    cr0 |= 0x01;
     write_cr0(cr0);
 
     far_jump(8, (uint32_t)protected_mode_entry);
 
-    return 0;
+    return ;
 }
 
 
