@@ -18,4 +18,6 @@ typedef struct SMAP_entry {
     uint32_t ACPI; // extended
 }__attribute__((packed)) SMAP_entry_t;
 
+#define SECTOR_SIZE     512
+#define KERNEL_ADDR    (1024*1024) 
 #endif

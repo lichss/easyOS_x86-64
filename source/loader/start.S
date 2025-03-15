@@ -23,5 +23,15 @@ _start:
 	.code32
 	.text
 	.global protected_mode_entry
+	.extern loader_anomi_entry
 protected_mode_entry:
+	mov $16, %ax
+	mov %ax, %ds
+	mov %ax, %es
+	mov %ax, %ss
+	mov %ax, %fs
+	mov %ax, %gs
+
+	jmp $8, $loader_anomi_entry
+
 	jmp .
